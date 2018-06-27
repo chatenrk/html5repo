@@ -40,6 +40,13 @@ document.addEventListener('DOMContentLoaded', getQuestion);
 // Next Button Click
 nextBtn.addEventListener('click', validate);
 
+// Input Field Enter Click
+inputField.addEventListener('keyup', e => {
+  if (e.keyCode == 13) {
+    validate();
+  }
+});
+
 
 // Functions
 
@@ -131,3 +138,22 @@ function inputPass() {
         formComplete();
     }
 }
+
+// All Fields Complete - Show h1 end
+function formComplete() {
+  const h1 = document.createElement('h1');
+  h1.classList.add('end');
+  h1.appendChild(
+    document.createTextNode(
+      `Thanks ${
+        questions[0].answer
+      } You are registered and will get an email shortly`
+    )
+  );
+  setTimeout(() => {
+    formBox.parentElement.appendChild(h1);
+    setTimeout(() => (h1.style.opacity = 1), 50);
+  }, 1000);
+}
+
+// 
