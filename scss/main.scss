@@ -75,7 +75,7 @@ h1.logo {
     position: relative;
     padding: 30px 20px 20px 20px;
     margin: 10px 60px 10px 10px;
-    opacity: 1;
+    opacity: 0;
     transition: opacity 0.3s ease-in-out;
     input {
         position: relative;
@@ -118,4 +118,20 @@ h1.logo {
   height: $progress-height;
   width: 0;
   transition: width 0.5s ease-in-out;
+}
+
+.error {
+  #input-progress {
+    border-color: $error;
+  }
+
+  #next-btn {
+    color: $error;
+  }
+}
+
+@media (max-width: 600px) {
+  #form-box {
+    width: 80%;
+  }
 }
