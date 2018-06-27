@@ -65,64 +65,69 @@ function getQuestion() {
 
 // Display Question To User
 function showQuestion() {
-  inputGroup.style.opacity = 1;
-  inputProgress.style.transition = '';
-  inputProgress.style.width = '100%';
+    inputGroup.style.opacity = 1;
+    inputProgress.style.transition = '';
+    inputProgress.style.width = '100%';
 }
 
 // Hide Question From User
 function hideQuestion() {
-  inputGroup.style.opacity = 0;
-  inputLabel.style.marginLeft = 0;
-  inputProgress.style.width = 0;
-  inputProgress.style.transition = 'none';
-  inputGroup.style.border = null;
+    inputGroup.style.opacity = 0;
+    inputLabel.style.marginLeft = 0;
+    inputProgress.style.width = 0;
+    inputProgress.style.transition = 'none';
+    inputGroup.style.border = null;
+}
+
+// Transform To Create Shake Motion
+function transform(x, y) {
+  formBox.style.transform = `translate(${x}px, ${y}px)`;
 }
 
 // Validate Field
 function validate() {
-  // Make Sure Pattern Matches If There Is One
-  if (!inputField.value.match(questions[position].pattern || /.+/)) {
-    inputFail();
-  } else {
-    inputPass();
-  }
+    // Make Sure Pattern Matches If There Is One
+    if (!inputField.value.match(questions[position].pattern || /.+/)) {
+        inputFail();
+    } else {
+        inputPass();
+    }
 }
 
 // Field Input Fail
 function inputFail() {
-  formBox.className = 'error';
-  // Repeat Shake Motion -  Set i to number of shakes
-  for (let i = 0; i < 6; i++) {
-    setTimeout(transform, shakeTime * i, ((i % 2) * 2 - 1) * 20, 0);
-    setTimeout(transform, shakeTime * 6, 0, 0);
-    inputField.focus();
-  }
+    formBox.className = 'error';
+    // Repeat Shake Motion -  Set i to number of shakes
+    for (let i = 0; i < 6; i++) {
+        setTimeout(transform, shakeTime * i, ((i % 2) * 2 - 1) * 20, 0);
+        setTimeout(transform, shakeTime * 6, 0, 0);
+        inputField.focus();
+    }
 }
 
 // Field Input Passed
 function inputPass() {
-  formBox.className = '';
-  setTimeout(transform, shakeTime * 0, 0, 10);
-  setTimeout(transform, shakeTime * 1, 0, 0);
+    formBox.className = '';
+    setTimeout(transform, shakeTime * 0, 0, 10);
+    setTimeout(transform, shakeTime * 1, 0, 0);
 
-  // Store Answer In Array
-  questions[position].answer = inputField.value;
+    // Store Answer In Array
+    questions[position].answer = inputField.value;
 
-  // Increment Position
-  position++;
+    // Increment Position
+    position++;
 
-  // If New Question, Hide Current and Get Next
-  if (questions[position]) {
-    hideQuestion();
-    getQuestion();
-  } else {
-    // Remove If No More Questions
-    hideQuestion();
-    formBox.className = 'close';
-    progress.style.width = '100%';
+    // If New Question, Hide Current and Get Next
+    if (questions[position]) {
+        hideQuestion();
+        getQuestion();
+    } else {
+        // Remove If No More Questions
+        hideQuestion();
+        formBox.className = 'close';
+        progress.style.width = '100%';
 
-    // Form Complete
-    formComplete();
-  }
+        // Form Complete
+        formComplete();
+    }
 }
